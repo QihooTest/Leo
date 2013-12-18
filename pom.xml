@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.github.qihootest</groupId>
+  <artifactId>leo.example</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+  <name>leo.example</name>
+  <url>https://github.com/QihooTest/Leo/tree/example</url>
+
+  <build>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>7</source>
+					<target>7</target>
+					<encoding>UTF-8</encoding>
+					<file.encoding>UTF-8</file.encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine> -Dfile.encoding=UTF-8</argLine>
+					<forkMode>once</forkMode>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<configuration>
+							<tasks>
+								<property name="runtime_classpath" refid="maven.runtime.classpath" />
+								<java classname="com.github.qihootest.leo.example.Entry" classpath="${runtime_classpath}"
+									fork="true" maxmemory="256m">
+									<sysproperty key="file.encoding" value="UTF-8" />
+									<arg value="${runtime_classpath}" />
+								</java>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.qihootest</groupId>
+			<artifactId>leo</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,4 +1,2 @@
-Leo
-===
-
-接口自动化测试框架
+接口自动化测试框架QTAF使用的实例
+mvn test命令执行 或者在eclipse中执行Entry 
