@@ -7,10 +7,10 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import cn.baiweigang.qtaf.ift.testcase.IftTestCase;
-import cn.baiweigang.qtaf.ift.testcase.format.FormatCase;
-import cn.baiweigang.qtaf.ift.core.IFtResultInfo;
-import cn.baiweigang.qtaf.dispatch.log.TestngLog;
+import com.github.qihootest.leo.ift.testcase.IftTestCase;
+import com.github.qihootest.leo.ift.testcase.format.FormatCase;
+import com.github.qihootest.leo.ift.core.IFtResultInfo;
+import com.github.qihootest.leo.dispatch.log.TestngLog;
 
 import ${clsInfo.importInfo};
 
