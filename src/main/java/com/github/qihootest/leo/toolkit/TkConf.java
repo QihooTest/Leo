@@ -20,7 +20,7 @@ public class TkConf  {
 	/**
 	 * log4j配置文件目录
 	 */
-	public static String Log4jConf = RootPath+"qtaf/toolkit/log4j.properties";
+	public static String Log4jConf = RootPath+"leo/toolkit/log4j.properties";
 
 	/**
 	 * 如果配置文件不存在，写入

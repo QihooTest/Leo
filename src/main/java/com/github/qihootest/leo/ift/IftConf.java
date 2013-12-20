@@ -23,7 +23,7 @@ public class IftConf{
 	/**
 	 * 接口ift配置等文件默认保存目录
 	 */
-	public static  String IftPath = RootPath+"qtaf/ift/";
+	public static  String IftPath = RootPath+"leo/ift/";
 	/**
 	 * 默认编译输出目录
 	 */

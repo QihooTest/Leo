@@ -29,15 +29,15 @@ public class DispatchConf {
 	/**
 	 * suites默认存储目录
 	 */
-	public static String SuitsXmlPath = RootPath+"qtaf/dispatch/suites/";//getPropValue("SuitsXmlPath", "tba/suites/");
+	public static String SuitsXmlPath = RootPath+"leo/dispatch/suites/";//getPropValue("SuitsXmlPath", "tba/suites/");
 	/**
 	 * testng默认输出目录
 	 */
-	public static String TestNgOutPath = RootPath+"qtaf/dispatch/testng-out/";
+	public static String TestNgOutPath = RootPath+"leo/dispatch/testng-out/";
 	/**
 	 * html测试报告默认输出目录
 	 */
-	public static String HtmlReportOutPath = RootPath+"qtaf/dispatch/report/"+System.currentTimeMillis()+"/";
+	public static String HtmlReportOutPath = RootPath+"leo/dispatch/report/"+System.currentTimeMillis()+"/";
 	/**
 	 * html测试报告默认标题
 	 */
@@ -45,7 +45,7 @@ public class DispatchConf {
 	/**
 	 * testNGXslt插件配置文件路径
 	 */
-	public static String TestNGXsltFile = RootPath+"qtaf/dispatch/testng-results.xsl";
+	public static String TestNGXsltFile = RootPath+"leo/dispatch/testng-results.xsl";
 	
 	/**
 	 * 写配置文件，如果不存在则创建
