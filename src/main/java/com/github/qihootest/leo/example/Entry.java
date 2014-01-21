@@ -28,9 +28,11 @@ public class Entry {
 			cls 执行用例的类 必填
 			method 类中的方法 必填
 		 */
-		iftExec.addCase(IftConf.RootPath+"demo.xlsx","Post","PayDemo",
+		String excelFilePath = IftConf.RootPath+"demo.xlsx";
+		
+		iftExec.addCase(excelFilePath,"Sheet1","用例名称1",
 				DemoCasesUtils.class,"DemoMethod1");
-		iftExec.addCase(IftConf.RootPath+"demo.xlsx","Get","PayDemo2",
+		iftExec.addCase(excelFilePath,"Sheet2","用例名称2",
 				DemoCasesUtils.class,"DemoMethod1");
 		
 		//执行
