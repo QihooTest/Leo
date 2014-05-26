@@ -9,7 +9,7 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
 
 /**
  * 任务执行入口
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class ExecTask {

@@ -5,7 +5,7 @@ import com.github.qihootest.leo.toolkit.util.ExcelUtil;
 
 /**
  * 功能说明：从excel表中读取用例数据文件
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  */
 public class ReadCaseFromExcel {
 	private ExcelUtil excel;

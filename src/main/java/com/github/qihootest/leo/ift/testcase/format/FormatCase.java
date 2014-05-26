@@ -11,7 +11,7 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
 
 /**
  * 功能说明：格式化测试用例数据， 目前只支持读取excel格式数据，XML、数据库等后续扩展
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  */
 public class FormatCase {
 

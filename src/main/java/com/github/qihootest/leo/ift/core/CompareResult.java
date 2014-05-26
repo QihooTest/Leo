@@ -17,7 +17,7 @@ import com.github.qihootest.leo.toolkit.util.XmlUtil;
 /**
  * 说明：比对期望结果与实际结果
  * 
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  * 
  */
 public class CompareResult {

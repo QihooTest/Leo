@@ -16,7 +16,7 @@ import ${clsInfo.importInfo};
 
 /**
  * 自动生成的测试用例
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class ${javaInfo.javaFileName}  {

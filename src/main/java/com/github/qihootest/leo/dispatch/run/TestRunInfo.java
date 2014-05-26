@@ -7,7 +7,7 @@ import com.github.qihootest.leo.dispatch.testcase.ICase;
 
 /**
  * TestNG运行信息
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  */
 public class TestRunInfo {
 	private String taskName;//任务名称

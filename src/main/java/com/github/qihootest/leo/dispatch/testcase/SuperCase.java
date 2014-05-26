@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 测试用例基类
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public abstract class SuperCase implements ICase {

@@ -16,7 +16,7 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
 
 /**
  * TestNG的原生报告转换为美化后的Html格式测试报告
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class ExportReportHtml {

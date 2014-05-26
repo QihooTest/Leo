@@ -18,7 +18,7 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
 
 /**
  * 执行testng，
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/> 2012-10-29
+ * @author lianghui (lianghui@360.cn) 2012-10-29
  *
  */
 public class TestngRun {

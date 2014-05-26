@@ -8,7 +8,7 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
 
 /**
  * .java文件类型的测试用例
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class JavaFileCase extends SuperCase{

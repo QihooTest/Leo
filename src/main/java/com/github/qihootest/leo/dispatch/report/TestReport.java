@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * 测试任务执行完毕后输出的测试报告摘要信息<br/>
  * 	
- *	@author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ *	@author lianghui (lianghui@360.cn)
  */
 public class TestReport {
 

@@ -7,7 +7,7 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
 
 /**
  * 封装TestNG log记录
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a>(bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class TestngLog {
