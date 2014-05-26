@@ -33,7 +33,7 @@ public class Entry3 {
 		if (!IftConf.updateJarFile(args)) return;
 		
 		//其它设置  
-		IftConf.ProxyEnable="N";//不启用代理，默认为启用
+		IftConf.ProxyEnable="Y";//启用代理，默认为不启用
 		
 		ExecTask exec = new ExecTask();
 		TestRunInfo runInfo = new TestRunInfo();
@@ -43,8 +43,8 @@ public class Entry3 {
 		IftDataFileCase dataCase = new IftDataFileCase();
 		dataCase.setIftTaskName("接口测试Demo");
 		//Excel文件  sheet表名 执行用例的类  类中的方法  
-		dataCase.addCase(IftConf.RootPath+"demo.xlsx","Post","PayDemo",DemoCasesUtils.class,"DemoMethod1");
-		dataCase.addCase(IftConf.RootPath+"demo.xlsx","Get","PayDemo2",DemoCasesUtils.class,"DemoMethod2");
+		dataCase.addCase(IftConf.RootPath+"demo.xlsx","Sheet1","用例名称1",DemoCasesUtils.class,"DemoMethod1");
+		dataCase.addCase(IftConf.RootPath+"demo.xlsx","Sheet2","用例名称2",DemoCasesUtils.class,"DemoMethod2");
 		
 		caseList.add(dataCase);
 		

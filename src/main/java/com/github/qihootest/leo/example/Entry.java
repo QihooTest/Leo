@@ -9,7 +9,7 @@ import com.github.qihootest.leo.ift.IftConf;
 import com.github.qihootest.leo.ift.IftExec;
 
 /**
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a><br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class Entry {
