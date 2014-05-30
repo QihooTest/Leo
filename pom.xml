@@ -51,6 +51,7 @@
 	    <plugin>
 	      <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-compiler-plugin</artifactId>
+		  <version>2.3.2</version>
 	      <configuration>
 	        <source>7</source>
 	        <target>7</target>
@@ -61,6 +62,7 @@
 	        <plugin>
 	      <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-surefire-plugin</artifactId>
+		  <version>2.17</version>
 	      <configuration>
 	      <argLine> -Dfile.encoding=UTF-8</argLine>
              <excludes>
@@ -95,6 +97,7 @@
 	</build>
 
 <dependencies>
+
 	<!-- dispatch testng调度部分所需jar包 -->
   	<dependency>
   		<groupId>org.testng</groupId>
