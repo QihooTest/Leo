@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>com.github.qihootest</groupId>
 			<artifactId>leo</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
