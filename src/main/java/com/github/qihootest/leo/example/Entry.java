@@ -19,6 +19,9 @@ public class Entry {
 		//依赖的jar文件路径信息  必须设置 以maven方式运行一次后会记录本地库jar文件位置
 		if (!IftConf.updateJarFile(args)) return;
 		
+		//其它设置  
+//		IftConf.ProxyEnable="Y";//启用代理，默认为不启用
+		
 		//添加用例
 		IftExec iftExec = new IftExec();
 		/**
