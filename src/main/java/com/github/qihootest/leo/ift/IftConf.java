@@ -64,7 +64,7 @@ public class IftConf{
 		/** 
 	     * 是否启用代理配置 
 	     */  	
-		public static String ProxyEnable = getPropValue("ProxyEnable","Y");
+		public static String ProxyEnable = getPropValue("ProxyEnable","N");
 		/**
 		 * 代理IP
 		 */
@@ -74,6 +74,19 @@ public class IftConf{
 		 */
 		public static int PROXY_PORT = Integer.parseInt(getPropValue("ProxyPort","8888"));
 		
+	//https协议配置
+		/**
+		 * 是否使用本地认证信息
+		 */
+		public static String SSL = getPropValue("SSL","N");
+		/**
+		 * 本地认证信息路径
+		 */
+		public static String KeyPath = getPropValue("keyPath",IftConf.RootPath);
+		/**
+		 * 密匙库的密码
+		 */
+	    public static String keyPassword = getPropValue("keyPassword","");
        
 	//结果比对参数
 		/**

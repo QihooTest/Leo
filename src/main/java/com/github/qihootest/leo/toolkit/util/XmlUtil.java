@@ -138,7 +138,7 @@ public class XmlUtil {
 			String keyOld = entry.getKey();
 			String valueOld = entry.getValue();
 			if (keyOld.equals(key)) {
-				value=valueOld+"&"+value;
+				value=valueOld+"^"+value;
 				break;
 			}
 		}

@@ -207,7 +207,7 @@ public class CompareResult {
 	 * @param responseRes 实际结果字符串
 	 * @return Map<String, String> ，返回整理后的实际结果
 	 */
-	private Map<String, String> trimActres(String responseRes,int config) {
+	public Map<String, String> trimActres(String responseRes,int config) {
 		Map<String, String> trimactres = new TreeMap<String, String>();
 		Map<String, Object> map = new TreeMap<String,Object>();
 		if (XmlUtil.isXmlText(responseRes)) {

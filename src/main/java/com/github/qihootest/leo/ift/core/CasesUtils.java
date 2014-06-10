@@ -6,12 +6,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.TreeMap;
 
 import com.github.qihootest.leo.ift.IftConf;
 import com.github.qihootest.leo.ift.testcase.IftTestCase;
 import com.github.qihootest.leo.ift.util.ExportReportExcel;
 import com.github.qihootest.leo.toolkit.httpclient.HttpUtil;
+import com.github.qihootest.leo.toolkit.httpclient.HttpsUtil;
 import com.github.qihootest.leo.toolkit.httpclient.ResponseInfo;
 import com.github.qihootest.leo.toolkit.util.CommUtils;
 import com.github.qihootest.leo.toolkit.util.LogUtil;
@@ -109,6 +112,16 @@ public class CasesUtils {
 			log.error("发起http请求时，获取headers信息失败");
 			resInfo.setErrMsgInfo("发起http请求时，获取headers信息失败");
 			return resInfo;
+		}
+		// 调用https对象进行重新赋值
+		if(getProtocol().equals("https")){
+			//使用本地ssl认证信息
+			if(IftConf.SSL.equals("Y")){
+				httpUtil = new HttpsUtil(IftConf.KeyPath,IftConf.keyPassword);
+			}else{
+				//不需要认证信息
+				httpUtil = new HttpsUtil();
+			}
 		}
 		try {
 			// 发起请求
@@ -566,5 +579,19 @@ public class CasesUtils {
 		}
 		return resInfo;
 	}
+	
+	/**
+	 * 获取请求的协议：默认为http
+	 * @return
+	 */
+    private String getProtocol() {
+      Pattern p = Pattern. compile("(.*?)://");
+      Matcher m = p.matcher(httpUrl);
+      String protocol = "http";
+      while (m.find()) {  
+    	  protocol = m.group(1);
+      }
+      return protocol;    
+  }
 
 }
