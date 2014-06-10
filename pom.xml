@@ -23,7 +23,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.qihootest</groupId>
   <artifactId>leo</artifactId>
-  <version>1.0.3-SNAPSHOT</version>
+  <version>1.0.3</version>
   <packaging>jar</packaging>
 
   <name>leo</name>
@@ -37,9 +37,9 @@
     </license>
   </licenses>
   <scm>
-    <url>scm:svn:https://github.com/QihooTest/Leo/trunk/</url>
-    <developerConnection>scm:svn:https://github.com/QihooTest/Leo/trunk/</developerConnection>
-    <connection>https://github.com/QihooTest/Leo/trunk/</connection>
+    <url>scm:svn:https://github.com/QihooTest/Leo/tags/leo-1.0.3</url>
+    <developerConnection>scm:svn:https://github.com/QihooTest/Leo/tags/leo-1.0.3</developerConnection>
+    <connection>https://github.com/QihooTest/Leo/tags/leo-1.0.3</connection>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
