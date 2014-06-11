@@ -3,9 +3,9 @@
 mvn test命令执行 或者在eclipse中执行Entry 
 
 1.0.3 更新内容：
-＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-pom.xml中增加邮件包依赖;
-增加https请求处理（支持证书认证与非证书认证两种方式）
-修改解析xml时一个key对应多个值时，实际结果值与预期结果值无法进行比较（key=value1^valu2）
-CompareResult.trimActres 修改为public类型提供业务处理使用;
-修改代理默认值bug;
+-----------------------------------------------------
+1. pom.xml中增加邮件包依赖;
+2. 支持https请求处理（支持证书认证与非证书认证两种方式）
+3. 修改解析xml时一个key对应多个值时，实际结果值与预期结果值无法进行比较（现已修改对多个值用^进行连接处理，eg:key=value1^valu2）
+4. 开放xml及json解析方法：CompareResult.trimActres提供业务处理使用;
+5. 修改代理默认值bug;
