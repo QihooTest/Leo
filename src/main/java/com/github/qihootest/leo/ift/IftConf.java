@@ -86,7 +86,10 @@ public class IftConf{
 		/**
 		 * 密匙库的密码
 		 */
-	    public static String keyPassword = getPropValue("keyPassword","");
+	    public static String KeyPassword = getPropValue("keyPassword","");
+	    
+	//时间样式设置
+	    public static String DateFormat =  getPropValue("dateFormat","yyyMMddHHmmss");
        
 	//结果比对参数
 		/**

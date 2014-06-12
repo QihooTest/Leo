@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.Random;
 import java.util.TreeMap;
 
+import com.github.qihootest.leo.ift.IftConf;
+
 /**
  *  通用工具包
  *	@author lianghui (lianghui@360.cn) 2013-01-10
@@ -305,7 +307,7 @@ public class CommUtils {
 	public static String getNowTime() {
 		String nowTime = "";
 		Date date = new Date();
-		SimpleDateFormat from = new SimpleDateFormat("yyyMMddHHmmss");
+		SimpleDateFormat from = new SimpleDateFormat(IftConf.DateFormat);
 		nowTime = from.format(date);
 		return nowTime;
 	}

@@ -117,7 +117,7 @@ public class CasesUtils {
 		if(getProtocol().equals("https")){
 			//使用本地ssl认证信息
 			if(IftConf.SSL.equals("Y")){
-				httpUtil = new HttpsUtil(IftConf.KeyPath,IftConf.keyPassword);
+				httpUtil = new HttpsUtil(IftConf.KeyPath,IftConf.KeyPassword);
 			}else{
 				//不需要认证信息
 				httpUtil = new HttpsUtil();
@@ -482,7 +482,7 @@ public class CasesUtils {
 			}
 			// 参数值标识为date时，日期字符串格式20120626092109 年月日时分秒
 			if (value.toLowerCase().equalsIgnoreCase("date")) {
-				value = CommUtils.getStrRandNum(3);
+				value = CommUtils.getStrRandNum(0);
 				caseMap.put(key, value);
 			}
 			// 其它处理
