@@ -16,7 +16,7 @@ import java.util.TreeMap;
 
 /**
  *  通用工具包
- *	@author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ *	@author lianghui (lianghui@360.cn) 2013-01-10
  */
 public class CommUtils {
 

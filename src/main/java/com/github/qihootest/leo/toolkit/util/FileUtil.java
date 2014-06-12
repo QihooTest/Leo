@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * 对文件的底层操作，包括读、写，文件的及目录的创建、删除
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class FileUtil {

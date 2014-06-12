@@ -50,7 +50,7 @@ import com.github.qihootest.leo.toolkit.util.StringUtil;
 
 /**
  * 封装HttpClient 发送Get、Post等请求
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn) 2014-06-10
  */
 public class HttpsUtil extends HttpUtil {
 	protected LogUtil log = LogUtil.getLogger(this.getClass());
@@ -135,7 +135,6 @@ public class HttpsUtil extends HttpUtil {
 			sr.register(new Scheme("https", 443, ssf));
 			return new DefaultHttpClient(ccm, httpClient.getParams());
 		} catch (Exception e) {
-			System.out.println("=====:=====");
 			e.printStackTrace();
 		}
 		return httpClient;

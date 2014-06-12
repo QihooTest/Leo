@@ -10,7 +10,7 @@ import net.sf.json.JSONObject;
 
 /**
  * 说明：解析Json字符串，解析后为map存储的键值对
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class JsonUtil {

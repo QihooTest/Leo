@@ -6,7 +6,7 @@ package com.github.qihootest.leo.toolkit;
 import com.github.qihootest.leo.toolkit.mysql.dao.Table;
 
 /**
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a><br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class att_click_info extends Table{

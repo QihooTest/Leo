@@ -20,7 +20,7 @@ import org.dom4j.Element;
 
 /**
  * XML文件解析处理
- *	@author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ *	@author lianghui (lianghui@360.cn)
  */
 public class XmlUtil {
 	private static TreeMap<String, String> resultMap;

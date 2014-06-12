@@ -8,7 +8,7 @@ import com.github.qihootest.leo.toolkit.dbunit.DbUnitUtil;
 import com.github.qihootest.leo.toolkit.mysql.ConnMysql;
 
 /**
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a><br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class TestDbunitUtil {

@@ -149,7 +149,14 @@ public class CompareResult {
 	private boolean CompareStr(String expValue, String actValue) {
 		//预期结果与实际结果任一为null，返回false
 		if (null==actValue || null==expValue) return false;
-		
+		//判断预期结果值是否为int值（关键词判断）
+		if(expValue.contains("int")){
+			if(actValue.matches("[0-9]+")){
+				return true;
+			}else{
+				return false;
+			}
+		}
 		//判断是否有多个预期结果值
 		if (expValue.contains("#")) {
 			boolean flag=false;

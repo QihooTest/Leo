@@ -9,7 +9,7 @@ import com.github.qihootest.leo.toolkit.mysql.dao.ITable;
 
 
 /**
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a><br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class TestMysqlUtil {

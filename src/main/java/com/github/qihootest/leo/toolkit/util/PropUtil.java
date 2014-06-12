@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 /**
  * Properties配置文件相关处理
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  *
  */
 public class PropUtil {

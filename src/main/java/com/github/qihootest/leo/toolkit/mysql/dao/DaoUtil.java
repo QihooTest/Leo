@@ -16,7 +16,7 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
  * 说明：数据库通用操作类，
  * 当前只支持数据类型为String
  * 所有实现ITable接口的实体类都可使用此类的方法完成增删改查
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/> 2013-01-08
+ * @author lianghui (lianghui@360.cn) 2013-01-10
  *
  */
 public class DaoUtil {

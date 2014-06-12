@@ -13,7 +13,7 @@ import com.jcraft.jsch.SftpException;
 
 /**
  * 针对CentOS服务器的文件进行下载，重命名等操作
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  */
 public class SftpFileUtil {
 

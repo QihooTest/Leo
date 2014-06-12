@@ -13,7 +13,7 @@ import com.jcraft.jsch.Session;
 
 /**
  * 连接到CentOS服务器，执行命令
- * @author @<a href='http://weibo.com/bwgang'>bwgang</a> (bwgang@163.com)<br/>
+ * @author lianghui (lianghui@360.cn)
  */
 public class SftpExecUtil {
 
