@@ -1,6 +1,8 @@
 package com.github.qihootest.leo.ift.core;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -593,5 +595,71 @@ public class CasesUtils {
       }
       return protocol;    
   }
+    
+	/**
+	 * 通过java反射机制获取，静态属性
+	 * @param conf DemoConf对象
+	 * @return
+	 * @author lianghui
+	 */
+    private static HashMap getConfParaValue(Object conf){
+    	HashMap paraValue = new HashMap();
+    	 Field[] field = conf.getClass().getDeclaredFields(); 
+    	 for(int i =0; i<field.length;i++){
+    		 String para = field[i].getName();    //获取属性的名字
+    		 String type = field[i].getGenericType().toString(); //获取属性类型
+    		 if(type.equals("class java.lang.String")){ //如果type是类类型，则前面包含"class "，后面跟类名
+    			 try {
+    				 String value = (String) field[i].get(conf); //直接获取静态属性值
+					paraValue.put(para, value);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e);
+					e.printStackTrace();
+				}
+    		 }
+    	 }
+		return paraValue;
+    }
+    
+    /**
+     * 更新配置文件中的全局Header和Host
+     * @param testCase
+     * @param conf
+     * @param HeardPara
+     * @return
+     * @author lianghui
+     */
+    protected static IftTestCase updateAllToConfForCase(IftTestCase testCase, 
+    		Object conf, String[] HeardPara) {
+		LinkedHashMap<String, String> caseMap = testCase.getCaseMap(); //获取参数Map
+    	HashMap paraValue = new HashMap();
+    	paraValue = getConfParaValue(conf);
+    	for(int i=0;i<HeardPara.length;i++){ //更新配置中的Heard参数
+    		if(paraValue.containsKey(HeardPara[i])&(!caseMap.containsKey(HeardPara[i]))){
+    			caseMap.put(HeardPara[i], (String) paraValue.get(HeardPara[i]));
+    		}
+    	}
+    	testCase.setCaseMap(caseMap); //将更新后的 参数赋值给testCase
+    	updateUrlHost(testCase,paraValue); //对url中的特殊标识（host）做处理
+    	return testCase;
+    }
+    
+    /**
+     * 对url中特殊标识（host）做处理
+     * @param testCase
+     * @param paraValue
+     * @author lianghui
+     */
+    private static void updateUrlHost(IftTestCase testCase,HashMap paraValue){
+    	if(testCase.getUrl().equalsIgnoreCase("host")){
+    		System.out.println("==="+paraValue.get("Host"));
+    		if((null != paraValue.get("Host"))& (paraValue.get("Host").toString().length()>0)){
+    			testCase.setUrl((String) paraValue.get("Host"));
+    		}else{
+    			log.error("DemoConf中的Host值为空，请检查！");
+    		}
+    	}
+    }
 
 }
