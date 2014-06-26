@@ -145,39 +145,58 @@ public class CompareResult {
 	 * @param expValue
 	 * @param actValue
 	 * @return boolean
+	 * @author lianghui
 	 */
 	private boolean CompareStr(String expValue, String actValue) {
 		//预期结果与实际结果任一为null，返回false
 		if (null==actValue || null==expValue) return false;
-		//判断预期结果值是否为int值（关键词判断）
-		if(expValue.contains("int")){
+		
+		//对实际结果中一个关键字对应多个值，进行处理
+		if(expValue.contains("^")){
+			boolean flag = true;
+			String[] allExpValue = expValue.split("\\^");
+			String[] allActValue = actValue.split("\\^");
+			for(int i = 0;i < allExpValue.length; i++){
+				if(allExpValue[i].contains("int")){
+					if(!allActValue[i].matches("[0-9]+")){
+						flag = false;
+						break;
+					}
+					}else if (!allExpValue[i].equals(allActValue[i])){
+					flag = false;
+					break;
+				}
+			}
+			return flag;
+		}
+
+		//判断是否有多个预期结果值
+		if (expValue.contains("#")) {
+			boolean flag2=false;
+			String[] allExpValue2 = expValue.split("#");
+			for (int i = 0; i < allExpValue2.length; i++) {
+					if (!actValue.equals(allExpValue2[i])) {
+						flag2 = false;
+					} else {
+						flag2 = true;
+						break;
+					}
+			}
+			return flag2;//返回结果
+		}
+		
+		//仅1个预期结果值,并对int关键词做处理
+		if(expValue.contains("int")){ //预期结果中有int值
 			if(actValue.matches("[0-9]+")){
 				return true;
 			}else{
 				return false;
 			}
+		}else if(!actValue.equalsIgnoreCase(expValue)){ //预期结果中没有int值
+			return  false;
+		} else {
+			return  true;
 		}
-		//判断是否有多个预期结果值
-		if (expValue.contains("#")) {
-			boolean flag=false;
-			String[] allExpValue = expValue.split("#");
-			for (int i = 0; i < allExpValue.length; i++) {
-					if (!actValue.equals(allExpValue[i])) {
-						flag = false;
-					} else {
-						flag = true;
-						break;
-					}
-			}
-			return flag;//返回结果
-		}
-		
-		//仅1个预期结果值
-		if (!actValue.equalsIgnoreCase(expValue)) {
-				return  false;
-			} else {
-				return  true;
-			}
 	}
 
 	/**
