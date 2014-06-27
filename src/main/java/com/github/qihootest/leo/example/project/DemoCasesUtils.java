@@ -29,6 +29,9 @@ public class DemoCasesUtils extends CasesUtils{
 		testcase.setEnCoding(DemoConf.ENCODING);
 		//设置用例使用的header信息--可选
 		testcase.setHeaderMap(new TreeMap<String,String>());
+		//更新DemoConf中的header参数值
+		DemoConf conf = new DemoConf();
+		testcase = updateAllToConfForCase(testcase, conf, DemoConf.HeardPara);
 		//更新用例的签名计算、url参数、form参数、header参数--必须
 		//是接口参数的父集
 		testcase=updateAllToListForCase(testcase, DemoConf.GetPara, DemoConf.PostPara, DemoConf.HeardPara);
