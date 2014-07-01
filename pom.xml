@@ -106,6 +106,7 @@
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
+  	<!-- 优化testng报告   TestNG-xslt包-->
   	<dependency>
   		<groupId>net.sf.saxon</groupId>
   		<artifactId>saxon</artifactId>
