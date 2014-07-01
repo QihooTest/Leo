@@ -156,7 +156,6 @@ public class MysqlUtil {
 	 * 按指定的sql.查询表中记录，返回第一条记录的指定列的值
 	 * 
 	 * @param sql
-	 * @param keyname
 	 * @return String
 	 */
 	public static String queryTableBysqlMax(String sql) {

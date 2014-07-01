@@ -584,7 +584,7 @@ public class CasesUtils {
 	
 	/**
 	 * 获取请求的协议：默认为http
-	 * @return
+	 * @return protocol
 	 */
     private String getProtocol() {
       Pattern p = Pattern. compile("(.*?)://");
@@ -599,8 +599,7 @@ public class CasesUtils {
 	/**
 	 * 通过java反射机制获取，静态属性
 	 * @param conf DemoConf对象
-	 * @return
-	 * @author lianghui
+	 * @return paraValue
 	 */
     private static HashMap getConfParaValue(Object conf){
     	HashMap paraValue = new HashMap();
@@ -627,8 +626,7 @@ public class CasesUtils {
      * @param testCase
      * @param conf
      * @param HeardPara
-     * @return
-     * @author lianghui
+     * @return testcase
      */
     protected static IftTestCase updateAllToConfForCase(IftTestCase testCase, 
     		Object conf, String[] HeardPara) {
@@ -649,7 +647,6 @@ public class CasesUtils {
      * 对url中特殊标识（host）做处理
      * @param testCase
      * @param paraValue
-     * @author lianghui
      */
     private static void updateUrlHost(IftTestCase testCase,HashMap paraValue){
     	if(testCase.getUrl().equalsIgnoreCase("host")){

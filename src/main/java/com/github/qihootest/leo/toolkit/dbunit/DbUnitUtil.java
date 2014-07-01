@@ -97,7 +97,7 @@ public static void writeToFileFromDataBase(IDatabaseConnection databaseConnectio
  * 从数据库中读取数据写入到文件中，支持excel和xml格式，以文件后缀名区分
  * @param destFilePath 写入文件的路径
  * @param databaseConnection  使用的IDatabaseConnection数据连接
- * @param querySqls  查询的sql语句，支持多个，使用;分开
+ * @param querySqlsSplitBySemicolon  查询的sql语句，支持多个，使用;分开
  */
 public static void writeToFileFromDataBase(String destFilePath,IDatabaseConnection databaseConnection,String querySqlsSplitBySemicolon){
 	writeToFileFromDataSet(getDataSetFromDataBase(databaseConnection, querySqlsSplitBySemicolon),destFilePath);
@@ -107,7 +107,7 @@ public static void writeToFileFromDataBase(String destFilePath,IDatabaseConnecti
  * 从数据库中读取数据写入到文件中，支持excel和xml格式，以文件后缀名区分
  * @param destFilePath 写入文件的路径
  * @param connection  使用的数据连接
- * @param querySqls  查询的sql语句，支持多个，使用;分开
+ * @param querySqlsSplitBySemicolon  查询的sql语句，支持多个，使用;分开
  */
 public static void writeToFileFromDataBase(String destFilePath,Connection connection,String querySqlsSplitBySemicolon){
 	writeToFileFromDataSet(getDataSetFromDataBase(connection, querySqlsSplitBySemicolon),destFilePath);
@@ -152,7 +152,7 @@ public static IDataSet getDataSetFromDataBase(Connection connection,String query
  * 根据databaseConnection和多个查询sql语句，返回IDataSet
  * @param databaseConnection 使用的IDatabaseConnection类型数据连接
  * @param querySqlsSplitBySemicolon 查询的sql语句，支持多个，使用;分开
- * @return 
+ * @return queryDataSet
  */
 public static IDataSet getDataSetFromDataBase(IDatabaseConnection databaseConnection,String querySqlsSplitBySemicolon){
 	//分割多个sql语句
@@ -174,7 +174,7 @@ public static IDataSet getDataSetFromDataBase(IDatabaseConnection databaseConnec
 /**
  * 根据connection和查询sql语句，返回ITable
  * @param connection
- * @param tableName 指定查询结果集对应的表名
+ * @param resultName 指定查询结果集对应的表名
  * @param querySql 单个sql查询语句
  * @return ITable
  */

@@ -105,7 +105,7 @@ public class HttpsUtil extends HttpUtil {
 	/**
 	 * 设置https请求头信息
 	 * @param httpClient
-	 * @return
+	 * @return httpClient
 	 */
 	private HttpClient setHttpClient(HttpClient httpClient) {
 		httpClient = new DefaultHttpClient();
@@ -144,7 +144,7 @@ public class HttpsUtil extends HttpUtil {
 	 * 设置https请求头信息
 	 * @param keyPath
 	 * @param keyPassword
-	 * @return
+	 * @return httpClient
 	 */
 	public HttpClient setHttpClient(String keyPath,String keyPassword){
 		httpClient = new DefaultHttpClient();

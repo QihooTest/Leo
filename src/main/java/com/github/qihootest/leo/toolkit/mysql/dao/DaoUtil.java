@@ -62,7 +62,7 @@ public class DaoUtil {
 	/**
 	 * 说明：根据传入的实体类，按指定列名返回此列的最大值
 	 * @param key
-	 * @param cls
+	 * @param table
 	 * @return String
 	 */
 	public static String getMaxInfoByKey(String key,ITable table) {
@@ -79,7 +79,7 @@ public class DaoUtil {
 	 * 说明：根据传入的实体类，按指定的条件更新一条记录
 	 * @param key
 	 * @param value
-	 * @param cls
+	 * @param table
 	 * @return boolean
 	 */
 	public static boolean updateInfo(String key,String value,ITable table) {
@@ -91,7 +91,7 @@ public class DaoUtil {
 	
 	/**
 	 * 说明：根据传入的实体类，插入到数据库对应的表中一条数据
-	 * @param cls
+	 * @param table
 	 * @return boolean 插入成功返回true，失败返回false
 	 */
 	public static boolean insterInfo(ITable table) {
@@ -105,7 +105,7 @@ public class DaoUtil {
 	 * 说明：根据传入的实体类，按指定的条件删除对应数据库表中一条记录
 	 * @param key
 	 * @param value
-	 * @param cls
+	 * @param table
 	 * @return  boolean 删除成功返回true，失败返回false
 	 */
 	public static boolean deleteInfoByKey(String key,String value,ITable table) {
@@ -120,7 +120,7 @@ public class DaoUtil {
 	
 	/**
 	 * 说明：根据实体类对象，获取实体类对应table的所有列名
-	 * @param 实体类对象
+	 * @param table 实体类对象
 	 * @return List<String> table的所有列名的List
 	 */
 	public static  List<String> getCoList(ITable table) {
@@ -144,7 +144,7 @@ public class DaoUtil {
 	 * 说明：根据key-value键值对，对实体类赋值
 	 * @param key 
 	 * @param value
-	 * @param 实体类对象
+	 * @param table 实体类对象
 	 * @return boolean  赋值成功返回true，失败返回false
 	 */
 	public static boolean set(String key,String value,ITable table) {

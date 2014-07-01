@@ -209,7 +209,7 @@ public class XlsTable extends AbstractTable {
 
     /**
      * @param cellValue
-     * @return
+     * @return result
      * @since 2.4.6
      */
     private BigDecimal toBigDecimal(double cellValue) {
