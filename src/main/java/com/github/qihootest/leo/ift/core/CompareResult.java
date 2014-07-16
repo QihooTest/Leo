@@ -187,7 +187,7 @@ public class CompareResult {
 		
 		//仅1个预期结果值,并对int关键词做处理
 		if(expValue.contains("int")){ //预期结果中有int值
-			if(actValue.matches("[0-9]+")){
+			if(actValue.matches("[0-9]+") & !actValue.equals("0")){ //匹配int类型实际结果，但实际结果不能为0
 				return true;
 			}else{
 				return false;
