@@ -1,15 +1,11 @@
-/**
- * 
- */
 package com.github.qihootest.leo.toolkit.util;
 
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -23,22 +19,24 @@ import org.dom4j.Element;
  *	@author lianghui (lianghui@360.cn)
  */
 public class XmlUtil {
-	private static TreeMap<String, String> resultMap;
-	private static LogUtil log = LogUtil.getLogger(XmlUtil.class);// 日志记录
+	private TreeMap<String, Object> resultMap;
+	private LogUtil log = LogUtil.getLogger(XmlUtil.class);// 日志记录
 	
+	public XmlUtil(){
+		resultMap = new TreeMap<String, Object>();
+	}
 	/**
 	 * xml文本串解析为Map表
 	 * @param strXML
 	 * @return Map<String, String>
 	 */
-	public static Map<String, String> fomatXMLToMap(String strXML) {
-		resultMap = new TreeMap<String, String>();
+	public Map<String, Object> fomatXMLToMap(String strXML) {
 		try {
 			Document doc = DocumentHelper.parseText(strXML);
 			Element root = doc.getRootElement();
-			AttriToMap(root);
-			traverse(root);
-			Dom2Map(doc);
+			AttriToMap(root); //标签属性解析
+			traverse(root); //标签属性解析，遍历
+			Dom2Map(doc); //结构解析			
 		} catch (DocumentException e) {
 			log.error(e.getMessage());
 		}
@@ -66,12 +64,12 @@ public class XmlUtil {
 	 * @param e
 	 */
 	@SuppressWarnings("unchecked")
-	private static void AttriToMap(Element e) {
+	private void AttriToMap(Element e) {
 		List<Attribute> tempList = e.attributes();
 		for (int i = 0; i < tempList.size(); i++) {
 			// 属性的取得
 			Attribute item = tempList.get(i);
-			MyPut(resultMap, item.getName(), item.getValue());
+			putMap(resultMap, item.getName(), item.getValue());
 //			resultMap.put(item.getName(), item.getValue());
 		}
 
@@ -83,7 +81,7 @@ public class XmlUtil {
 	 * @param e
 	 */
 	@SuppressWarnings("unchecked")
-	private static void traverse(Element e) {
+	private void traverse(Element e) {
 		List<Element> list = e.elements();
 		for (int i = 0; i < list.size(); i++) {
 			Element iter = list.get(i);
@@ -93,7 +91,7 @@ public class XmlUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void Dom2Map(Document doc) {
+	private void Dom2Map(Document doc) {
 		if (doc == null)
 			return;
 		Element root = doc.getRootElement();
@@ -103,13 +101,13 @@ public class XmlUtil {
 			if (list.size() > 0) {
 				Dom2Map(e);
 			} else
-				MyPut(resultMap, e.getName(), e.getText());
+				putMap(resultMap, e.getName(), e.getText());
 //				resultMap.put(e.getName(), e.getText());
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void Dom2Map(Element e) {
+	private void Dom2Map(Element e) {
 		List<Element> list = e.elements();
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
@@ -117,31 +115,37 @@ public class XmlUtil {
 				if (iter.elements().size() > 0) {
 					Dom2Map(iter);
 				} else {
-					MyPut(resultMap, iter.getName(), iter.getText());
+					putMap(resultMap, iter.getName(), iter.getText());
 //					resultMap.put(iter.getName(), iter.getText());
 				}
 			}
 		} else {
-			MyPut(resultMap, e.getName(), e.getText());
+			putMap(resultMap, e.getName(), e.getText());
 //			resultMap.put(e.getName(), e.getText());
 		}
 	}
 	
 	/**
-	 * map增加key-value逻辑，如果已存在，则不覆盖，以&连接原值
+	 * map增加key-value逻辑，如果已存在，则不覆盖，以arraylist存储
 	 * @param map
 	 * @param key
 	 * @param value
 	 */
-	private static void MyPut(TreeMap<String, String>map,String key,String value){
-		for (Entry<String, String> entry : map.entrySet()) {
-			String keyOld = entry.getKey();
-			String valueOld = entry.getValue();
-			if (keyOld.equals(key)) {
-				value=valueOld+"^"+value;
-				break;
-			}
+	
+	private void putMap(TreeMap<String,Object>map,String key,String value){
+		if(map.containsKey(key)){ //判断原始map中是否已存在重复key
+			Object valueOld = map.get(key);
+			if (map.get(key) instanceof ArrayList) { // 判断value是否已经为ArrayList，等二次发现有相同的key
+				((ArrayList) valueOld).add(value.trim());
+				map.put(key, valueOld);
+			} else { // 第一次处理相同的key，new一个ArrayList
+				ArrayList valueList = new ArrayList();
+				valueList.add(valueOld);
+				valueList.add(value.trim());
+				map.put(key, valueList);
+		    }
+		}else{
+			map.put(key, value);
 		}
-		map.put(key, value);
 	}
 }

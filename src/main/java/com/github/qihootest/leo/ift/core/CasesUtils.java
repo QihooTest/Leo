@@ -178,7 +178,7 @@ public class CasesUtils {
 		//http请求执行成功后，才进行比对
 		if (resInfo.getErrMsgInfo() == null) {
 			//结果比对
-			compareRes=comresult.getCompareResult(expRes,actRes,parseJson);//单层方式解析json串
+			compareRes=comresult.getCompareResult(expRes,actRes,parseJson);//解析json串
 			actRes=comresult.getClearActres();
 			expRes=comresult.getClearExpres();
 		}else{

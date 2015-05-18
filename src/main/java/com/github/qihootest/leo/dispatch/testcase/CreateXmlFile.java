@@ -35,6 +35,17 @@ public class CreateXmlFile {
 		setXmlFileFolder(DispatchConf.SuitsXmlPath);
 	}
 	
+	/**
+	 * 构造函数
+	 * @param threadCont 线程数
+	 * @param setParallel 设置多线程方式
+	 */
+	public CreateXmlFile(int threadCont,String setParallel){
+		suite=new XmlSuite();
+		setSuiteName("测试套件"+CommUtils.getRandomStr(5),threadCont,setParallel);
+		setXmlFileFolder(DispatchConf.SuitsXmlPath);
+	}
+	
 	public String getXmlFilePath(){
 		if (suite.getTests().size()<1) {
 			log.error("未添加任何测试集，未生成xml文件");
@@ -85,6 +96,21 @@ public class CreateXmlFile {
 			log.info("使用默认测试套名称："+this.suiteName);
 		}
 		suite.setName(this.suiteName);
+		suite.setVerbose(1);
+	}
+
+	/**
+	 * 设置测试套名称
+	 * @param suiteName
+	 * @param threadCont 执行的线程数
+	 * @param setParallel 设置多线程的方式
+	 */
+	public void setSuiteName(String suiteName,int threadCont,String setParallel) {
+		this.setSuiteName(suiteName);
+		if(threadCont>0){
+			suite.setParallel(setParallel); //设置多线程的方式 methods ,tests,classes
+			suite.setThreadCount(threadCont);  //设置多线程的个数
+		}
 	}
 	
 	public void setXmlFileFolder(String xmlFileFolder) {
@@ -106,6 +132,10 @@ public class CreateXmlFile {
 		suite.addTest(test);
 	}
 	
+	/**
+	 * 生成testNG调用的xml文件
+	 * @return
+	 */
 	private String createXmlFile(){
 		List<String> arr=new ArrayList<String>();
 		String xml=this.suite.toXml();

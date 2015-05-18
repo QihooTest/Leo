@@ -21,6 +21,16 @@ public class JavaFileCase extends SuperCase{
 		super();
 		createXmlFile = new CreateXmlFile();
 	}
+	
+	/**
+	 * 构造函数
+	 * @param threadCont 线程数
+	 */
+	public JavaFileCase(int threadCont,String setParallel){
+		super();
+		createXmlFile = new CreateXmlFile(threadCont,setParallel);
+	}
+	
 	/**
 	 * 获取用例列表，返回的是xml文件路径信息
 	 * @return List<String>

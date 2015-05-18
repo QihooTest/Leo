@@ -52,12 +52,12 @@ public class CompareResult {
 			setClearActres("未设置预期值&实际结果为："+actRes);
 			return true;//预期结果为空或null时，不再进行比对处理，直接返回true
 		}
-		exp = trimExpres(expRes);
+		exp = trimExpres(expRes);  //将预期结果解析成map
 		if (StringUtil.IsNullOrEmpty(actRes)) {
 			setClearActres("实际结果为null或空字符串，未找到");
 			return false;//实际结果为空或null时，不再进行比对处理，直接返回false
 		}
-		act = trimActres(actRes,config);
+		act = trimActres(actRes,config); //将实际结果解析成map
 		return compareMap(exp, act);
 	}
 
@@ -148,55 +148,63 @@ public class CompareResult {
 	 * @author lianghui
 	 */
 	private boolean CompareStr(String expValue, String actValue) {
-		//预期结果与实际结果任一为null，返回false
-		if (null==actValue || null==expValue) return false;
-		
-		//对实际结果中一个关键字对应多个值，进行处理
-		if(expValue.contains("^")){
-			boolean flag = true;
-			String[] allExpValue = expValue.split("\\^");
-			String[] allActValue = actValue.split("\\^");
-			for(int i = 0;i < allExpValue.length; i++){
-				if(allExpValue[i].contains("int")){
-					if(!allActValue[i].matches("[0-9]+")){
-						flag = false;
-						break;
+		// 预期结果与实际结果任一为null，返回false
+		if (null == actValue || null == expValue)	return false;
+		// 判断实际结果是否为数组格式
+		if (actValue.startsWith("[") && actValue.endsWith("]")) {
+			String[] actValueList = StringUtil.stringToArray(actValue);
+			// 判断预期结果是否来数组格式(预期结果包含[])
+			if (expValue.startsWith("[") && expValue.endsWith("]")) {
+				String[] expArray = StringUtil.stringToArray(expValue);
+				if (actValueList.length == expArray.length) { // 判断实际结果与预期结果的数组长度是否相同，不相同则直接返回错误
+					for (int i = 0; i < actValueList.length; i++) {
+						if (!(actValueList[i].trim())
+								.equals(expArray[i].trim())) { // 判断实际结果与预期结果中的数据组是否相同
+							return false;
+						}
 					}
-					}else if (!allExpValue[i].equals(allActValue[i])){
-					flag = false;
-					break;
+					// 预期结果与实际结果的数组长度不相等，则直接返回false
+				} else {
+					return false;
+				}
+				// 预期结果为非数组，则判断预期结果是否包含在实际结果中
+			} else {
+				int len = actValueList.length;
+				for (int i = 0; i < len; i++) {
+					if ((actValueList[i].trim()).equals(expValue.trim())) {
+						return true;
+					}
+
 				}
 			}
-			return flag;
+			return true;
+		} else {
+
+			// 判断是否有多个预期结果值(预期结果中包含#，进入下面方法)
+			if (expValue.contains("#")) {
+				String[] allExpValue2 = expValue.split("#");
+				for (int i = 0; i < allExpValue2.length; i++) {
+					if (actValue.equals(allExpValue2[i])) {
+						return true;
+					}
+				}
+				return false;// 返回结果
+			}
+
+			// 仅1个预期结果值,并对int关键词做处理
+			if (expValue.contains("int")) { // 预期结果中有int值
+				if (actValue.matches("[0-9]+") & !actValue.equals("0")) { // 匹配int类型实际结果，但实际结果不能为0
+					return true;
+				} else {
+					return false;
+				}
+			} else if (!actValue.equalsIgnoreCase(expValue)) { // 预期结果中没有int值
+				return false;
+			} else {
+				return true;
+			}
 		}
 
-		//判断是否有多个预期结果值
-		if (expValue.contains("#")) {
-			boolean flag2=false;
-			String[] allExpValue2 = expValue.split("#");
-			for (int i = 0; i < allExpValue2.length; i++) {
-					if (!actValue.equals(allExpValue2[i])) {
-						flag2 = false;
-					} else {
-						flag2 = true;
-						break;
-					}
-			}
-			return flag2;//返回结果
-		}
-		
-		//仅1个预期结果值,并对int关键词做处理
-		if(expValue.contains("int")){ //预期结果中有int值
-			if(actValue.matches("[0-9]+") & !actValue.equals("0")){ //匹配int类型实际结果，但实际结果不能为0
-				return true;
-			}else{
-				return false;
-			}
-		}else if(!actValue.equalsIgnoreCase(expValue)){ //预期结果中没有int值
-			return  false;
-		} else {
-			return  true;
-		}
 	}
 
 	/**
@@ -236,10 +244,11 @@ public class CompareResult {
 	public Map<String, String> trimActres(String responseRes,int config) {
 		Map<String, String> trimactres = new TreeMap<String, String>();
 		Map<String, Object> map = new TreeMap<String,Object>();
+		XmlUtil xmlUtil = new XmlUtil();
 		if (XmlUtil.isXmlText(responseRes)) {
-			trimactres = XmlUtil.fomatXMLToMap(responseRes);
-			if (trimactres.size()<1) {
-				trimactres.put("解析xml格式错误", "---"+responseRes);
+			map = xmlUtil.fomatXMLToMap(responseRes);
+			if (map.size()<1) {
+				map.put("解析xml格式错误", "---"+responseRes);
 			}
 		} else{
 			if(config == 1){//单层方式解析json串
@@ -253,11 +262,12 @@ public class CompareResult {
 				trimactres.put("解析json格式错误", "---"+responseRes);
 				return trimactres;
 			}
-			for (Iterator<Entry<String, Object>> it = map.entrySet().iterator(); it.hasNext();) {
-				@SuppressWarnings("rawtypes")
-				Map.Entry entity = it.next();
-				trimactres.put(entity.getKey().toString(), entity.getValue().toString());
-			}
+			
+		}
+		for (Iterator<Entry<String, Object>> it = map.entrySet().iterator(); it.hasNext();) {   //object类型转换成String类型
+			@SuppressWarnings("rawtypes")
+			Map.Entry entity = it.next();
+			trimactres.put(entity.getKey().toString(), entity.getValue().toString());
 		}
 		return trimactres;
 	}

@@ -3,6 +3,7 @@ package com.github.qihootest.leo.toolkit.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -463,4 +464,23 @@ public class StringUtil {
 			}
 			return false;
 		}
+	
+	/**
+	 * 将含有[]的字符串转为数组
+	 * @param strName
+	 * @return
+	 */
+	public static String[] stringToArray(String strName){
+		String[] result;
+		if(strName.startsWith("[")&&strName.endsWith("]")){
+			strName = strName.substring(1,strName.length());
+			strName= strName.substring(0,strName.length()-1);
+			result = strName.split(",");
+		}else{                             //如果字符串中不包含[],则把字符中直接作为长度为1的数组
+			result = new String[1];
+			result[0]=strName;
+		}
+		return result;
+	}
+	
 }

@@ -24,6 +24,10 @@ public class IftExec {
 	private TestRunInfo runInfo;
 	private List<ICase> caseList;
 	private IftDataFileCase dataCase;
+	
+	/**
+	 * 构造函数
+	 */
 	public IftExec(){
 		
 		//清空临时目录
@@ -33,6 +37,22 @@ public class IftExec {
 		runInfo = new TestRunInfo();
 		caseList = new ArrayList<>();//用例列表
 		dataCase = new IftDataFileCase();
+		dataCase.setIftTaskName("接口测试");		
+	}
+	
+	/**
+	 * 构造函数
+	 * @param threadCont
+	 */
+	public IftExec(int threadCont,String setParallel){
+		
+		//清空临时目录
+		DispatchConf.delTmpPath();
+		IftConf.delTmpPath();
+		exec = new ExecTask();
+		runInfo = new TestRunInfo();
+		caseList = new ArrayList<>();//用例列表
+		dataCase = new IftDataFileCase(setParallel,threadCont);
 		dataCase.setIftTaskName("接口测试");		
 	}
 	

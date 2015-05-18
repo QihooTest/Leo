@@ -39,6 +39,25 @@ public class IftDataFileCase extends SuperCase{
 		setIftTaskName("未命名测试任务");
 		excelReportName="未命名接口测试";
 	}
+	
+	/**
+	 * 构造函数
+	 * @param threadCont 线程数
+	 * @param setParallel 设置多线程执行方式methods;tests;classes
+	 */
+	public   IftDataFileCase(String setParallel,int threadCont) {
+		super();
+		if(setParallel.equals("methods")||setParallel.equals("tests")||setParallel.equals("classes")){
+			createJavaFile = new CreateJavaFile();
+			createXmlFile = new CreateXmlFile(threadCont,setParallel);
+			setIftTaskName("未命名测试任务");
+			excelReportName="未命名接口测试";
+		}else{
+			log.error("多线程不支持："+setParallel+"方法");
+		}
+
+
+	}
 
 	public List<String> getCaseList() {
 		createXmlFile();

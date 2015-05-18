@@ -1,5 +1,6 @@
 package com.github.qihootest.leo.toolkit.util;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,7 +15,7 @@ import net.sf.json.JSONObject;
  *
  */
 public class JsonUtil {
-	private static Map<String, Object> oneResult = new TreeMap<String, Object>();
+	private Map<String, Object> oneResult = new TreeMap<String, Object>();
 
 
 	/**
@@ -24,12 +25,13 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> getResult(String str) {
+		JsonUtil jsonUtil = new JsonUtil();
 		try {
-			oneResult = JSONObject.fromObject(str);
+			jsonUtil.oneResult = JSONObject.fromObject(str);
 		} catch (JSONException e) {
-			oneResult=null;
+			jsonUtil.oneResult = null;
 		}
-		return oneResult;
+		return jsonUtil.oneResult;
 	}
 
 	/**
@@ -38,13 +40,14 @@ public class JsonUtil {
 	 * @return	Map<String, Object> 异常返回null
 	 */
 	public static Map<String, Object> getAllResult(String str) {
+		JsonUtil jsonUtil = new JsonUtil();
 		try {
 			JSONObject tempJSON = JSONObject.fromObject(str);
-			jsonToMap(tempJSON,oneResult);
+			jsonToMap(tempJSON, jsonUtil.oneResult);
 		} catch (Exception e) {
-			oneResult=null;			
+			jsonUtil.oneResult = null;
 		}
-		return oneResult;
+		return jsonUtil.oneResult;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -63,7 +66,22 @@ public class JsonUtil {
 					jsonToMap(jo,resultMap);
 				}
 			} else { // 简单类型
-				resultMap.put(realKey, valueObj.toString());
+				if (resultMap.containsKey(realKey)) { // 判断是否存在相同的key，如果存在相同的key，map将用<String,ArrayList>泛型存储
+					ArrayList valueList = new ArrayList();
+					if (resultMap.get(realKey) instanceof ArrayList) { // 判断value是否已经为ArrayList，等二次发现有相同的key
+						valueList = (ArrayList) resultMap.get(realKey);
+						valueList.add(valueObj.toString().trim());
+						resultMap.put(realKey, valueList);
+					} else { // 第一次处理相同的key，new一个ArrayList
+						valueList.add(resultMap.get(realKey));
+						valueList.add(valueObj.toString().trim());
+						resultMap.put(realKey, valueList);
+					}
+
+				} else {
+					resultMap.put(realKey, valueObj.toString().trim());
+				}
+
 			}
 		}
 	}

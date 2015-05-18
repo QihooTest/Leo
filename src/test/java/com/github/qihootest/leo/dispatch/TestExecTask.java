@@ -3,6 +3,7 @@ package com.github.qihootest.leo.dispatch;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.qihootest.leo.dispatch.log.TestngLog;
 import com.github.qihootest.leo.dispatch.report.TestReport;
 import com.github.qihootest.leo.dispatch.run.TestRunInfo;
 import com.github.qihootest.leo.dispatch.testcase.ICase;
@@ -20,7 +21,7 @@ public class TestExecTask {
 		
 		//java格式用例			
 		JavaFileCase jCase = new JavaFileCase();
-		jCase.addCase(TestTestngLog.class);
+		jCase.addCase(TestngLog.class);
 		caseList.add(jCase);
 		
 		runInfo.setCaseList(caseList);
