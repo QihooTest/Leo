@@ -22,16 +22,24 @@ import com.github.qihootest.leo.toolkit.util.LogUtil;
 public class DaoUtil {
 
 	private static LogUtil log=LogUtil.getLogger(DaoUtil.class);//日志记录
+	MysqlUtil mysqlUtil ;
+	
+	/**
+	 * 构造方法
+	 */
+	public DaoUtil(){
+		mysqlUtil = new MysqlUtil();
+	}
 	
 	/**
 	 * 说明：根据传入的实体类，返回对应数据库表所有记录List
 	 * @param table 实体类对象
 	 * @return List<ITable>实体类对应数据库表的所有记录List
 	 */
-	public static List<ITable> getAllInfo(ITable table){		
+	public List<ITable> getAllInfo(ITable table){		
 		String tablename=getNameOfClass(table);
 		List<String> keyList=getCoList(table);	
-		List<Map<String, String>>resMapList=MysqlUtil.queryFromTable(tablename, keyList);
+		List<Map<String, String>>resMapList=mysqlUtil.queryFromTable(tablename, keyList);
 		return getTableFromMap(resMapList,table);		
 	}
 	
@@ -41,10 +49,10 @@ public class DaoUtil {
 	 * @param table
 	 * @return List<ITable>
 	 */
-	public static List<ITable>  getInfoByKey(String where,ITable table) {
+	public List<ITable>  getInfoByKey(String where,ITable table) {
 		String tablename=getNameOfClass(table);
 		List<String> keyList=getCoList(table);	
-		List<Map<String, String>>resMapList=MysqlUtil.getMapFromSql(tablename, where,keyList);
+		List<Map<String, String>>resMapList=mysqlUtil.getMapFromSql(tablename, where,keyList);
 		return getTableFromMap(resMapList,table);
 	}
 
@@ -54,8 +62,8 @@ public class DaoUtil {
 	 * @param table
 	 * @return List<ITable>
 	 */
-	public static List<ITable>  getInfoBySql(String sql,ITable table) {
-		List<Map<String, String>>resMapList=MysqlUtil.queryBySql(sql);
+	public List<ITable>  getInfoBySql(String sql,ITable table) {
+		List<Map<String, String>>resMapList=mysqlUtil.queryBySql(sql);
 		return getTableFromMap(resMapList,table);		
 	}
 	
@@ -65,11 +73,11 @@ public class DaoUtil {
 	 * @param table
 	 * @return String
 	 */
-	public static String getMaxInfoByKey(String key,ITable table) {
+	public String getMaxInfoByKey(String key,ITable table) {
 		String tablename=getNameOfClass(table);
 		String max="";
 		String sql="SELECT MAX("+key+") from "+tablename;
-		max=MysqlUtil.queryTableBysqlMax(sql);		
+		max=mysqlUtil.queryTableBysqlMax(sql);		
 		if (null==max || max.length()<1) {
 			max="0";
 		}
@@ -82,10 +90,10 @@ public class DaoUtil {
 	 * @param table
 	 * @return boolean
 	 */
-	public static boolean updateInfo(String key,String value,ITable table) {
+	public boolean updateInfo(String key,String value,ITable table) {
 		boolean flag=false;
 		String sql=getUpdateSql(key, value, table);
-		flag=MysqlUtil.excSql(sql);		
+		flag=mysqlUtil.excSql(sql);		
 		return flag;
 	}
 	
@@ -94,10 +102,10 @@ public class DaoUtil {
 	 * @param table
 	 * @return boolean 插入成功返回true，失败返回false
 	 */
-	public static boolean insterInfo(ITable table) {
+	public boolean insterInfo(ITable table) {
 		boolean flag=false;
 		String sql=getInsertSql(table);
-		flag=MysqlUtil.excSql(sql);		
+		flag=mysqlUtil.excSql(sql);		
 		return flag;
 	}
 
@@ -108,12 +116,12 @@ public class DaoUtil {
 	 * @param table
 	 * @return  boolean 删除成功返回true，失败返回false
 	 */
-	public static boolean deleteInfoByKey(String key,String value,ITable table) {
+	public boolean deleteInfoByKey(String key,String value,ITable table) {
 		boolean flag=false;
 		String sql="DELETE from "+getNameOfClass(table)+" where "
 						+key+"='"+value+"'";		
 		
-		flag=MysqlUtil.excSql(sql);		
+		flag=mysqlUtil.excSql(sql);		
 		return flag;
 	}
 

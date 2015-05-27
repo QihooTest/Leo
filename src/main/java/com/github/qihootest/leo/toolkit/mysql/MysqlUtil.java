@@ -21,7 +21,7 @@ public class MysqlUtil {
 
 	private static Connection con = null; // 创建用于连接数据库的Connection对象
 	private static LogUtil log = LogUtil.getLogger(MysqlUtil.class);// 日志记录
-	private static ConnMysql mysql;// 数据库连接
+	private ConnMysql mysql;// 数据库连接
 
 	/**
 	 * 连接mysql，如果已连接，则不再根据传入的参数创建连接
@@ -32,7 +32,7 @@ public class MysqlUtil {
 	 * @param userName
 	 * @param passWord
 	 */
-	public static void connMysql(String ip, String port, String dataName,
+	public void connMysql(String ip, String port, String dataName,
 			String userName, String passWord) {
 		if (con == null) {
 			if (null == mysql) {//
@@ -56,16 +56,17 @@ public class MysqlUtil {
 	 * @param userName
 	 * @param passWord
 	 */
-	public static void reConnMysql(String ip, String port, String dataName,
+	public void reConnMysql(String ip, String port, String dataName,
 			String userName, String passWord) {
+		MysqlUtil mu = new MysqlUtil();
 		closedConn();
-		connMysql(ip, port, dataName, userName, passWord);
+		mu.connMysql(ip, port, dataName, userName, passWord);
 	}
 
 	/**
 	 * 说明：关闭数据库连接
 	 */
-	public static void closedConn() {
+	public void closedConn() {
 		if (con != null) {
 			mysql.closedConn();
 			con = null;
@@ -78,7 +79,7 @@ public class MysqlUtil {
 	 * @param sql
 	 * @return boolean 成功返回true，失败返回false
 	 */
-	public static boolean excSql(String sql) {
+	public boolean excSql(String sql) {
 		if (null == con) {
 //			log.info("尚未连接数据库");
 			return false;// 数据库未连接
@@ -92,7 +93,7 @@ public class MysqlUtil {
 	 * @param sql
 	 * @return List<Map<String, String>>
 	 */
-	public static List<Map<String, String>> queryBySql(String sql) {
+	public List<Map<String, String>> queryBySql(String sql) {
 		return getMapFromResult(querySql(sql));
 	}
 
@@ -102,7 +103,7 @@ public class MysqlUtil {
 	 * @param tablename
 	 * @return List<Map<String, String>>
 	 */
-	public static List<Map<String, String>> queryFromTable(String tablename) {
+	public List<Map<String, String>> queryFromTable(String tablename) {
 		String sql = "select * from " + tablename;
 		return getMapFromResult(querySql(sql));
 	}
@@ -113,7 +114,7 @@ public class MysqlUtil {
 	 * @param tablename
 	 * @return List<Map<String, String>>
 	 */
-	public static List<Map<String, String>> queryFromTable(String tablename,
+	public List<Map<String, String>> queryFromTable(String tablename,
 			List<String> keyList) {
 		return getMapByKeyList(queryFromTable(tablename), keyList);
 	}
@@ -125,7 +126,7 @@ public class MysqlUtil {
 	 * @param wherestr
 	 * @return List<Map<String, String>>
 	 */
-	public static List<Map<String, String>> queryFromTableByIf(
+	public List<Map<String, String>> queryFromTableByIf(
 			String tablename, String wherestr) {
 		String sql = "select * from " + tablename + " where " + wherestr;
 		return getMapFromResult(querySql(sql));
@@ -139,7 +140,7 @@ public class MysqlUtil {
 	 * @param keyname
 	 * @return String
 	 */
-	public static String queryFromTableByIf(String tablename, String wherestr,
+	public String queryFromTableByIf(String tablename, String wherestr,
 			String keyname) {
 		Map<String, String> map = new TreeMap<String, String>();
 		try {
@@ -158,7 +159,7 @@ public class MysqlUtil {
 	 * @param sql
 	 * @return String
 	 */
-	public static String queryTableBysqlMax(String sql) {
+	public String queryTableBysqlMax(String sql) {
 		String max = "";
 		try {
 			ResultSet res = querySql(sql);
@@ -179,7 +180,7 @@ public class MysqlUtil {
 	 * @param keyList
 	 * @return List<Map<String, String>>
 	 */
-	public static List<Map<String, String>> getMapFromSql(String tableName,
+	public List<Map<String, String>> getMapFromSql(String tableName,
 			String whereStr, List<String> keyList) {
 		return getMapByKeyList(queryFromTableByIf(tableName, whereStr), keyList);
 	}
@@ -192,7 +193,7 @@ public class MysqlUtil {
 	 * @param expMap
 	 * @return List<Map<String, String>>
 	 */
-	public static List<Map<String, String>> getMapFromSql(String tablename,
+	public List<Map<String, String>> getMapFromSql(String tablename,
 			String wherestr, Map<String, String> expMap) {
 		List<String> keyList = StringUtil.getKeyListFromMap(expMap);
 		return getMapFromSql(tablename, wherestr, keyList);
@@ -200,7 +201,7 @@ public class MysqlUtil {
 
 	// 私有方法
 
-	private static ResultSet querySql(String sql) {
+	private ResultSet querySql(String sql) {
 		if (null == con) {
 //			log.info("尚未连接数据库");
 			return null;// 数据库未连接

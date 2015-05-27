@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -16,6 +19,10 @@ import org.apache.commons.io.FileUtils;
  *
  */
 public class IftConf{
+	/**
+	 * 自定义依赖参数
+	 */
+	public static Map DependPara = new HashMap();
 	/**
 	 * 项目根目录	
 	 */

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.TreeMap;
 
 import com.github.qihootest.leo.ift.IftConf;
@@ -44,20 +46,39 @@ public class CompareResult {
 		//开始比对之前，清空已整理后的预期与实际结果字符串
 		setClearActres("");
 		setClearExpres("");
-		
+		//预期结果中匹配${}
+		Pattern pattern = Pattern.compile("^\\$\\{(.*)\\}$");
+		Matcher matcher = pattern.matcher(expRes);
 		Map<String, String> exp = new TreeMap<String, String>();
 		Map<String, String> act = new TreeMap<String, String>();
+		act = trimActres(actRes,config); //将实际结果解析成map
 		if (StringUtil.IsNullOrEmpty(expRes)) {
 			setClearExpres("预期结果为null或空字符串，不进行比对");
 			setClearActres("未设置预期值&实际结果为："+actRes);
 			return true;//预期结果为空或null时，不再进行比对处理，直接返回true
+		}else if(matcher.matches()){
+			String para = matcher.group(1);	
+			if(para.contains("_")){  //当依赖参数中有多个值时进行处理(同一个id可能会有多个依赖参数，用_进行分割)
+				String[] paraArray = para.split("_");
+				para = paraArray[0];
+			}
+			if(act.get(para)!=null){  //实际结果中没有预期结果参数，则用例失败
+				setClearExpres("预期结果为依赖参数，不进行验证");
+				setClearActres("预期结果为依赖参数&实际结果为："+actRes);
+				IftConf.DependPara.put(matcher.group(1), act.get(para));  //添加依赖参数(赋值)
+				return true;
+			}else{ //当未匹配到依赖参数时返回 false
+				setClearExpres("预期结果为依赖参数:"+expRes);
+				setClearActres("实际结果未匹配到参数："+para);
+				return false;
+			}
+
 		}
 		exp = trimExpres(expRes);  //将预期结果解析成map
 		if (StringUtil.IsNullOrEmpty(actRes)) {
 			setClearActres("实际结果为null或空字符串，未找到");
 			return false;//实际结果为空或null时，不再进行比对处理，直接返回false
 		}
-		act = trimActres(actRes,config); //将实际结果解析成map
 		return compareMap(exp, act);
 	}
 

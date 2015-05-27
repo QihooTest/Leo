@@ -466,12 +466,25 @@ public class CasesUtils {
 			log.error("用例的参数值对为空，请检查");
 			return testCase;
 		}
+		//预期结果中匹配${}
+		Pattern pattern = Pattern.compile(".*\\$\\{(.*)\\}.*"); //匹配${}前后可以有字符
+		Matcher matcher ;
 		// 遍历所有键值对，针对特殊标识做处理
 		Iterator<Entry<String, String>> it = caseMap.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry<String, String> entity = (Entry<String, String>) it.next();
 			String key = entity.getKey().toString();
 			String value = entity.getValue().toString();
+			matcher = pattern.matcher(value);
+			//对依赖参数进行替换
+			if(matcher.matches()&(!key.equals("Expres"))&null!=value){ //匹配到${},且key不能为Expres
+				if((IftConf.DependPara).containsKey(matcher.group(1))){    //如果依赖参数map包含要替换的key
+					String valueDepend = (String) (IftConf.DependPara).get(matcher.group(1));  //重新赋值value
+					value = value.replaceAll("\\$\\{(.*)\\}", valueDepend); //值替换
+					caseMap.put(key, value);
+				}
+				
+			}
 			// 针对参数值特殊标识rand的处理，随机生成长度为10个字符串
 			if (value.toLowerCase().equalsIgnoreCase("rand")) {
 				value = CommUtils.getRandomStr(randNum);
