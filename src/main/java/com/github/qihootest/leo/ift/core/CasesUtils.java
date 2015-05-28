@@ -467,7 +467,7 @@ public class CasesUtils {
 			return testCase;
 		}
 		//预期结果中匹配${}
-		Pattern pattern = Pattern.compile(".*\\$\\{(.*)\\}.*"); //匹配${}前后可以有字符
+		Pattern pattern = Pattern.compile("\\$\\{(.*)\\}"); //匹配${}前后可以有字符
 		Matcher matcher ;
 		// 遍历所有键值对，针对特殊标识做处理
 		Iterator<Entry<String, String>> it = caseMap.entrySet().iterator();
@@ -476,12 +476,14 @@ public class CasesUtils {
 			String key = entity.getKey().toString();
 			String value = entity.getValue().toString();
 			matcher = pattern.matcher(value);
-			//对依赖参数进行替换
-			if(matcher.matches()&(!key.equals("Expres"))&null!=value){ //匹配到${},且key不能为Expres
+			//对依赖参数进行替换			
+			if(matcher.find()&(!key.equals("Expres"))&null!=value){ //匹配到${},且key不能为Expres
+				StringBuffer sb = new StringBuffer();
 				if((IftConf.DependPara).containsKey(matcher.group(1))){    //如果依赖参数map包含要替换的key
-					String valueDepend = (String) (IftConf.DependPara).get(matcher.group(1));  //重新赋值value
-					value = value.replaceAll("\\$\\{(.*)\\}", valueDepend); //值替换
-					caseMap.put(key, value);
+					value = (String) (IftConf.DependPara).get(matcher.group(1));  //重新赋值value
+					matcher.appendReplacement(sb, value);
+					matcher.appendTail(sb);
+					caseMap.put(key, sb.toString());
 				}
 				
 			}
