@@ -8,6 +8,7 @@ import com.github.qihootest.leo.ift.IftConf;
 import com.github.qihootest.leo.ift.testcase.IftTestCase;
 import com.github.qihootest.leo.toolkit.util.FileUtil;
 import com.github.qihootest.leo.toolkit.util.LogUtil;
+import com.github.qihootest.leo.toolkit.util.StringUtil;
 
 /**
  * 功能说明：格式化测试用例数据， 目前只支持读取excel格式数据，XML、数据库等后续扩展
@@ -85,7 +86,8 @@ public class FormatCase {
 				for (int i = 0; i < argKey.length; i++) {
 					// 判断此条记录是否有cookie参数，如果有且不为空替换全局cookie
 					if (null != argValue[i] && argKey[i].equals("cookie") && argValue[i].length() > 0) {
-						tempcase.setCookie(argValue[i]);
+						String dependCookie = (String) (IftConf.DependPara).get("cookie");  //重新赋值value
+						tempcase.setCookie(StringUtil.paramReplace(argValue[i], dependCookie));  //cookie参数依赖（将之前接口获取的cookie值进行替换）
 					}
 					mycase.put(argKey[i], argValue[i]);
 				}

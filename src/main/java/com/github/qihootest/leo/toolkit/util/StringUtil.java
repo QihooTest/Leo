@@ -483,4 +483,25 @@ public class StringUtil {
 		return result;
 	}
 	
+	/**
+	 * 替换${}格式的数据（参数依赖）
+	 * @param str
+	 * @param replacement
+	 * @return
+	 */
+	public static String paramReplace(String str,String replacement){
+		//预期结果中匹配${}
+		StringBuffer sb = new StringBuffer();
+		if(str!=null&&replacement!=null){  //str与replacement不能为空，为空则返回原始str
+			Pattern pattern = Pattern.compile("\\$\\{(.*)\\}"); //匹配${}前后可以有字符
+			Matcher matcher = pattern.matcher(str);			
+			if(matcher.find()){    //如果未匹配到则返回原始str
+				matcher.appendReplacement(sb, replacement);
+				matcher.appendTail(sb);
+				return sb.toString();
+			}	
+		}
+		return str;   
+	}
+	
 }

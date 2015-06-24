@@ -12,6 +12,7 @@ public class ResponseInfo {
 	private String httpUrl;//发起get或post请求的url信息，post的body信息转换为参数对字符串标识
 	private String resBodyInfo;//http请求返回的body信息
 	private Map<String, String> resHeaderInfo;//http请求返回的Header键值对
+	private String cookies; //http请求返回的cookie信息
 	private String errMsgInfo;//记录错误信息
 	public String getHttpUrl() {
 		return httpUrl;
@@ -30,6 +31,12 @@ public class ResponseInfo {
 	}
 	public void setResHeaderInfo(Map<String, String> resHeaderInfo) {
 		this.resHeaderInfo = resHeaderInfo;
+	}
+	public String getCookies() {
+		return cookies;
+	}
+	public void setCookies(String cookies) {
+		this.cookies = cookies;
 	}
 	public String getErrMsgInfo() {
 		return errMsgInfo;

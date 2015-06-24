@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -25,7 +26,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.client.params.CookiePolicy;
 import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -263,6 +266,7 @@ public class HttpUtil {
 		} 
 		resInfo.setResBodyInfo(getResBody(response));
 		resInfo.setResHeaderInfo(getResHeader(response));
+		resInfo.setCookies(getCookies()); //将返回的cookie信息传给resInfo
         return resInfo;
 	}
 
@@ -353,6 +357,7 @@ public class HttpUtil {
 		ResponseInfo resInfo = new ResponseInfo();
 		resInfo.setResBodyInfo(getResBody(response));
 		resInfo.setResHeaderInfo(getResHeader(response));
+		resInfo.setCookies(getCookies());//将返回的cookie信息传给resInfo
 		httppost.abort();
 		return resInfo;
 	}
@@ -431,6 +436,18 @@ public class HttpUtil {
 			}
 		}
 		return strResult;
+	}
+	
+	/**
+	 * 获取返回结果中的cookies信息
+	 * @return
+	 */
+	private String getCookies(){
+		StringBuilder sb = new StringBuilder();
+        List<Cookie> cookies = ((AbstractHttpClient) httpClient).getCookieStore().getCookies();
+        for(Cookie cookie: cookies)
+            sb.append(cookie.getName() + "=" + cookie.getValue() + ";");
+        return sb.toString();
 	}
 	
 

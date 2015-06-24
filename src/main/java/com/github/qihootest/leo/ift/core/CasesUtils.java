@@ -177,10 +177,34 @@ public class CasesUtils {
 		
 		//http请求执行成功后，才进行比对
 		if (resInfo.getErrMsgInfo() == null) {
-			//结果比对
-			compareRes=comresult.getCompareResult(expRes,actRes,parseJson);//解析json串
-			actRes=comresult.getClearActres();
-			expRes=comresult.getClearExpres();
+			//预期结果中匹配${}
+			Pattern pattern = Pattern.compile("^\\$\\{(.*)\\}$");
+			Matcher matcher = pattern.matcher(expRes);
+			if(matcher.matches()){   //是否匹配到${}
+				String para = matcher.group(1);
+				if(para.equals("cookie")){ //判断预期结果中是否存在cookie依赖参数
+					if(resInfo.getCookies()!=null&(resInfo.getCookies().length()>0)){
+						IftConf.DependPara.put(matcher.group(1), resInfo.getCookies());  //添加依赖参数(赋值)
+						actRes = matcher.group(1)+"="+resInfo.getCookies();
+						compareRes = true;
+					}else{
+						compareRes=false;
+						actRes=resInfo.getCookies();
+						expRes=comresult.getClearExpres();	
+					}
+				}else{
+					//结果比对
+					compareRes=comresult.getCompareResult(expRes,actRes,parseJson);//解析json串
+					actRes=comresult.getClearActres();
+					expRes=comresult.getClearExpres();
+				}				
+			}else{
+				//结果比对
+				compareRes=comresult.getCompareResult(expRes,actRes,parseJson);//解析json串
+				actRes=comresult.getClearActres();
+				expRes=comresult.getClearExpres();
+			}
+
 		}else{
 			resInfo.setResBodyInfo(resInfo.getErrMsgInfo());
 			actRes="";
