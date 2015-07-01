@@ -41,6 +41,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -108,7 +109,9 @@ public class HttpsUtil extends HttpUtil {
 	 * @return httpClient
 	 */
 	private HttpClient setHttpClient(HttpClient httpClient) {
-		httpClient = new DefaultHttpClient();
+		PoolingClientConnectionManager pccm = new PoolingClientConnectionManager();
+        pccm.setMaxTotal(100); //设置整个连接池最大链接数
+		httpClient = new DefaultHttpClient(pccm);
 		final X509Certificate[] _AcceptedIssuers = new X509Certificate[] {};
 		try {
 			SSLContext ctx = SSLContext.getInstance("TLS");

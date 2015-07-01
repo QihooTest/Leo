@@ -30,6 +30,7 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -51,8 +52,10 @@ public class HttpUtil {
 	 * 默认构造函数
 	 */
 	public HttpUtil() {
-		this.charset = "UTF-8";
-		httpClient = new DefaultHttpClient();
+		this.charset = "UTF-8"; 
+		PoolingClientConnectionManager pccm = new PoolingClientConnectionManager();
+        pccm.setMaxTotal(100); //设置整个连接池最大链接数
+		httpClient = new DefaultHttpClient(pccm);
 		httpClient.getParams().setParameter(ClientPNames.COOKIE_POLICY,CookiePolicy.BROWSER_COMPATIBILITY);
 		httpClient.getConnectionManager().closeIdleConnections(30,TimeUnit.SECONDS);
 	}
