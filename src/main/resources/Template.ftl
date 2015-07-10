@@ -6,7 +6,7 @@ import java.util.List;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
+import com.github.qihootest.leo.ift.util.ExportReportExcel;
 import com.github.qihootest.leo.ift.testcase.IftTestCase;
 import com.github.qihootest.leo.ift.testcase.format.FormatCase;
 import com.github.qihootest.leo.ift.core.IFtResultInfo;
@@ -120,9 +120,10 @@ public class ${javaInfo.javaFileName}  {
 	
 	@AfterTest
 	public void afterTest() {   
-		cau.closeConn();
+		//cau.closeConn();
 		//执行结果写入excel
-		cau.CreatReportExcel(excelReportFilePath,excelReportName,excelReportSheetName,compareResultList);
+		ExportReportExcel exportexcel = new ExportReportExcel();
+		exportexcel.CreatReportExcel(excelReportFilePath,excelReportName,excelReportSheetName,compareResultList);
 		//记录到TestNG日志
 		TestngLog.Log("所有用例执行完毕");
 		TestngLog.Log("共验证检查点数为："+compareResultList.size());

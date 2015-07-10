@@ -362,7 +362,7 @@ public class CasesUtils {
 	 * @param testcase
 	 * @return TreeMap<String, String> 参与签名计算的键值对map表
 	 */
-	protected static TreeMap<String, String> getSignMap(IftTestCase testcase) {
+	public TreeMap<String, String> getSignMap(IftTestCase testcase) {
 		TreeMap<String, String> signMap = new TreeMap<String, String>();
 		if (null == testcase.getSignlist()) {
 			log.error("传入的签名参数名列表为null，请检查");
@@ -388,7 +388,7 @@ public class CasesUtils {
 	 * @param headerParaCheck
 	 * @return  IftTestCase
 	 */
-	protected static IftTestCase updateAllToListForCase(IftTestCase testcase,String[] urlParaCheck, 
+	public IftTestCase updateAllToListForCase(IftTestCase testcase,String[] urlParaCheck, 
 			String[] formParaCheck,String[] headerParaCheck) {
 		ArrayList<String> signList = new ArrayList<String>();// 参与签名计算的参数名列表
 		ArrayList<String> urlParaList = new ArrayList<String>();// 参与url拼接的参数名列表
@@ -456,7 +456,7 @@ public class CasesUtils {
 	 * @param signValue
 	 * @return IftTestCase
 	 */
-	protected static IftTestCase updateSignValueForCase(IftTestCase testCase,String signValue) {
+	public IftTestCase updateSignValueForCase(IftTestCase testCase,String signValue) {
 		LinkedHashMap<String, String> caseMap = testCase.getCaseMap();
 		if (!testCase.isSignFlag()) {
 			// 无需计算签名
@@ -484,7 +484,7 @@ public class CasesUtils {
 	 * @param randNum
 	 * @return IftTestCase
 	 */
-	protected static IftTestCase updateAllParaForCase(IftTestCase testCase,int randNum) {
+	public IftTestCase updateAllParaForCase(IftTestCase testCase,int randNum) {
 		LinkedHashMap<String, String> caseMap = testCase.getCaseMap();
 		if (null == caseMap || caseMap.size() < 1) {
 			log.error("用例的参数值对为空，请检查");
@@ -561,18 +561,6 @@ public class CasesUtils {
 
 	}
 	
-	/**
-	 * 输出Excel格式测试报告
-	 * @param folder
-	 * @param excelName
-	 * @param sheetName
-	 * @param arrres
-	 * @return boolean 输出成功返回true
-	 */
-	public boolean CreatReportExcel(String folder,String excelName,String sheetName,List<LinkedHashMap<String,String>> arrres) {
-		ExportReportExcel exportexcel = new ExportReportExcel();
-		return exportexcel.CreatReportExcel(folder,excelName,sheetName,arrres);
-	}
 	//直接执行已处理好的post
 	/**
 	 * 发起Post
@@ -667,7 +655,7 @@ public class CasesUtils {
      * @param HeardPara
      * @return testcase
      */
-    protected static IftTestCase updateAllToConfForCase(IftTestCase testCase, 
+    public IftTestCase updateAllToConfForCase(IftTestCase testCase, 
     		Object conf, String[] HeardPara) {
 		LinkedHashMap<String, String> caseMap = testCase.getCaseMap(); //获取参数Map
     	HashMap paraValue = new HashMap();

@@ -158,7 +158,7 @@ public class HttpUtil {
 			return new String(getFile(httpGet),enCoding);
 		} catch (UnsupportedEncodingException e) {
 			log.error("getFile执行异常207：");
-			log.error(e.getMessage());
+			log.error(e);
 			return "";
 		}
 	}
@@ -181,10 +181,10 @@ public class HttpUtil {
 			output.close();
 		} catch (FileNotFoundException e) {
 			log.error("getFile执行异常223：");
-			log.error(e.getMessage());
+			log.error(e);
 		} catch (IOException e) {
 			log.error("getFile执行异常226：");
-			log.error(e.getMessage());
+			log.error(e);
 		}
 		return bs;
 	}
@@ -262,10 +262,10 @@ public class HttpUtil {
 			response = httpClient.execute(httpget);
 		} catch (ClientProtocolException e) {
 			log.error("get执行异常291：");
-			log.error(e.getMessage());
+			log.error(e);
 		} catch (IOException e) {
 			log.error("get执行异常294：");
-			log.error(e.getMessage());
+			log.error(e);
 		} 
 		resInfo.setResBodyInfo(getResBody(response));
 		resInfo.setResHeaderInfo(getResHeader(response));
@@ -310,7 +310,7 @@ public class HttpUtil {
 			httpPost.setEntity(new UrlEncodedFormEntity(nvps, this.charset));
 		} catch (UnsupportedEncodingException e) {
 			log.error("post设置异常338：");
-			log.error(e.getMessage());
+			log.error(e);
 		}
 		return httpPost;
 	}
@@ -329,11 +329,11 @@ public class HttpUtil {
 			}
 		} catch (ClientProtocolException e) {
 			log.error("getFile执行异常357：");
-			log.error(e.getMessage());
+			log.error(e);
 			in = null;
 		} catch (IOException e) {
 			log.error("getFile执行异常361：");
-			log.error(e.getMessage());
+			log.error(e);
 			in = null;
 		}
 		return in;
@@ -350,11 +350,11 @@ public class HttpUtil {
 			response = httpClient.execute(httppost);
 		} catch (ClientProtocolException e) {
 			log.error("post执行异常378：");
-			log.error(e.getMessage());
+			log.error(e);
 			response = null;
 		} catch (IOException e) {
 			log.error("post执行异常382：");
-			log.error(e.getMessage());
+			log.error(e);
 			response = null;
 		}
 		ResponseInfo resInfo = new ResponseInfo();
@@ -378,7 +378,7 @@ public class HttpUtil {
 			httppost.setEntity(reqEntity);
 		} catch (UnsupportedEncodingException e) {
 			log.error("post执行异常405：");
-			log.error(e.getMessage());
+			log.error(e);
 		}
 		return post(httppost);
 	}
@@ -415,11 +415,11 @@ public class HttpUtil {
 						EntityUtils.toString(res.getEntity(), charset);
 			} catch (ParseException e) {
 				log.error("获取body信息异常450：");
-				log.error(e.getMessage());
+				log.error(e);
 				strResult = e.getMessage().toString();
 			} catch (IOException e) {
 				log.error("获取body信息异常454：");
-				log.error(e.getMessage());
+				log.error(e);
 				strResult = e.getMessage().toString();
 			}
 		} else if (res.getStatusLine().getStatusCode() == 302) {
@@ -434,7 +434,7 @@ public class HttpUtil {
 					res.getEntity().consumeContent();
 				} catch (IOException e) {
 					log.error("获取body信息异常469：");
-					log.error(e.getMessage());
+					log.error(e);
 				}
 			}
 		}

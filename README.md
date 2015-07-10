@@ -7,6 +7,7 @@ Leo
 -----------------------------------------------------
 1.增加对cookie的接口依赖;在预期结果中增加${cookie},会将cookie做为变量传递到其它参数中;
 2.增加httpClient线程池管理，解决多线程请求时“[ERROR] CasesUtils - Invalid use of BasicClientConnManager: connection still allocated.”的问题;
+3.修复多线程时更新请求参数时资源同步问题;(现在业务类方法不需要继承casesUtils)
 
 
 
